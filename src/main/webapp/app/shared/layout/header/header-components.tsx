@@ -13,9 +13,9 @@ export const BrandIcon = props => (
 
 export const Brand = () => (
   <NavbarBrand tag={Link} to="/" className="brand-logo">
-    <BrandIcon />
+    <FontAwesomeIcon icon="chart-line" className="me-2" />
     <span className="brand-title">
-      <Translate contentKey="global.title">PortfolioTracker</Translate>
+      Portfolio Tracker
     </span>
     <span className="navbar-version">{VERSION.toLowerCase().startsWith('v') ? VERSION : `v${VERSION}`}</span>
   </NavbarBrand>
@@ -26,7 +26,7 @@ export const Home = () => (
     <NavLink tag={Link} to="/" className="d-flex align-items-center">
       <FontAwesomeIcon icon="home" />
       <span>
-        <Translate contentKey="global.menu.home">Home</Translate>
+        Dashboard
       </span>
     </NavLink>
   </NavItem>

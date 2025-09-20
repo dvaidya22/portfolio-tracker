@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button, Table } from 'reactstrap';
+import { Button, Table, Card, CardBody, CardHeader, Badge } from 'reactstrap';
 import { JhiItemCount, JhiPagination, TextFormat, Translate, getPaginationState } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSort, faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
@@ -91,103 +91,101 @@ export const Portfolio = () => {
 
   return (
     <div>
-      <h2 id="portfolio-heading" data-cy="PortfolioHeading">
-        <Translate contentKey="portfolioTrackerApp.portfolio.home.title">Portfolios</Translate>
-        <div className="d-flex justify-content-end">
-          <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
-            <FontAwesomeIcon icon="sync" spin={loading} />{' '}
-            <Translate contentKey="portfolioTrackerApp.portfolio.home.refreshListLabel">Refresh List</Translate>
-          </Button>
-          <Link to="/portfolio/new" className="btn btn-primary jh-create-entity" id="jh-create-entity" data-cy="entityCreateButton">
-            <FontAwesomeIcon icon="plus" />
-            &nbsp;
-            <Translate contentKey="portfolioTrackerApp.portfolio.home.createLabel">Create new Portfolio</Translate>
-          </Link>
-        </div>
-      </h2>
-      <div className="table-responsive">
-        {portfolioList && portfolioList.length > 0 ? (
-          <Table responsive>
-            <thead>
-              <tr>
-                <th className="hand" onClick={sort('id')}>
-                  <Translate contentKey="portfolioTrackerApp.portfolio.id">ID</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('id')} />
-                </th>
-                <th className="hand" onClick={sort('name')}>
-                  <Translate contentKey="portfolioTrackerApp.portfolio.name">Name</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('name')} />
-                </th>
-                <th className="hand" onClick={sort('createdDate')}>
-                  <Translate contentKey="portfolioTrackerApp.portfolio.createdDate">Created Date</Translate>{' '}
-                  <FontAwesomeIcon icon={getSortIconByFieldName('createdDate')} />
-                </th>
-                <th>
-                  <Translate contentKey="portfolioTrackerApp.portfolio.user">User</Translate> <FontAwesomeIcon icon="sort" />
-                </th>
-                <th />
-              </tr>
-            </thead>
-            <tbody>
-              {portfolioList.map((portfolio, i) => (
-                <tr key={`entity-${i}`} data-cy="entityTable">
-                  <td>
-                    <Button tag={Link} to={`/portfolio/${portfolio.id}`} color="link" size="sm">
-                      {portfolio.id}
-                    </Button>
-                  </td>
-                  <td>{portfolio.name}</td>
-                  <td>
-                    {portfolio.createdDate ? <TextFormat type="date" value={portfolio.createdDate} format={APP_DATE_FORMAT} /> : null}
-                  </td>
-                  <td>{portfolio.user ? <Link to={`/user-account/${portfolio.user.id}`}>{portfolio.user.login}</Link> : ''}</td>
-                  <td className="text-end">
-                    <div className="btn-group flex-btn-group-container">
-                      <Button tag={Link} to={`/portfolio/${portfolio.id}`} color="info" size="sm" data-cy="entityDetailsButton">
-                        <FontAwesomeIcon icon="eye" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.view">View</Translate>
-                        </span>
-                      </Button>
-                      <Button
-                        tag={Link}
-                        to={`/portfolio/${portfolio.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
-                        color="primary"
-                        size="sm"
-                        data-cy="entityEditButton"
-                      >
-                        <FontAwesomeIcon icon="pencil-alt" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.edit">Edit</Translate>
-                        </span>
-                      </Button>
-                      <Button
-                        onClick={() =>
-                          (window.location.href = `/portfolio/${portfolio.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
-                        }
-                        color="danger"
-                        size="sm"
-                        data-cy="entityDeleteButton"
-                      >
-                        <FontAwesomeIcon icon="trash" />{' '}
-                        <span className="d-none d-md-inline">
-                          <Translate contentKey="entity.action.delete">Delete</Translate>
-                        </span>
-                      </Button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        ) : (
-          !loading && (
-            <div className="alert alert-warning">
-              <Translate contentKey="portfolioTrackerApp.portfolio.home.notFound">No Portfolios found</Translate>
+      <Card>
+        <CardHeader>
+          <div className="d-flex justify-content-between align-items-center">
+            <h2 className="mb-0">
+              <FontAwesomeIcon icon="chart-pie" className="me-2" />
+              My Portfolios
+            </h2>
+            <div>
+              <Button className="me-2" color="info" onClick={handleSyncList} disabled={loading}>
+                <FontAwesomeIcon icon="sync" spin={loading} /> Refresh
+              </Button>
+              <Link to="/portfolio/new" className="btn btn-primary">
+                <FontAwesomeIcon icon="plus" /> Create Portfolio
+              </Link>
             </div>
-          )
-        )}
-      </div>
+          </div>
+        </CardHeader>
+        <CardBody>
+          <div className="table-responsive">
+            {portfolioList && portfolioList.length > 0 ? (
+              <Table responsive hover>
+                <thead>
+                  <tr>
+                    <th className="hand" onClick={sort('name')}>
+                      Portfolio Name <FontAwesomeIcon icon={getSortIconByFieldName('name')} />
+                    </th>
+                    <th className="hand" onClick={sort('createdDate')}>
+                      Created Date <FontAwesomeIcon icon={getSortIconByFieldName('createdDate')} />
+                    </th>
+                    <th>Owner</th>
+                    <th>Status</th>
+                    <th className="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {portfolioList.map((portfolio, i) => (
+                    <tr key={`entity-${i}`} data-cy="entityTable">
+                      <td>
+                        <strong>{portfolio.name}</strong>
+                      </td>
+                      <td>
+                        {portfolio.createdDate ? <TextFormat type="date" value={portfolio.createdDate} format={APP_DATE_FORMAT} /> : null}
+                      </td>
+                      <td>
+                        <Badge color="secondary">
+                          {portfolio.user ? portfolio.user.login : 'Unknown'}
+                        </Badge>
+                      </td>
+                      <td>
+                        <Badge color="success">Active</Badge>
+                      </td>
+                      <td className="text-end">
+                        <div className="btn-group">
+                          <Button tag={Link} to={`/portfolio/${portfolio.id}`} color="primary" size="sm">
+                            <FontAwesomeIcon icon="chart-line" /> Dashboard
+                          </Button>
+                          <Button
+                            tag={Link}
+                            to={`/portfolio/${portfolio.id}/edit?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`}
+                            color="outline-primary"
+                            size="sm"
+                          >
+                            <FontAwesomeIcon icon="pencil-alt" />
+                          </Button>
+                          <Button
+                            onClick={() =>
+                              (window.location.href = `/portfolio/${portfolio.id}/delete?page=${paginationState.activePage}&sort=${paginationState.sort},${paginationState.order}`)
+                            }
+                            color="outline-danger"
+                            size="sm"
+                          >
+                            <FontAwesomeIcon icon="trash" />
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            ) : (
+              !loading && (
+                <div className="text-center py-5">
+                  <FontAwesomeIcon icon="chart-pie" size="3x" className="text-muted mb-3" />
+                  <h4>No Portfolios Found</h4>
+                  <p className="text-muted">Create your first portfolio to start tracking your investments.</p>
+                  <Button tag={Link} to="/portfolio/new" color="primary">
+                    <FontAwesomeIcon icon="plus" /> Create Your First Portfolio
+                  </Button>
+                </div>
+              )
+            )}
+          </div>
+        </CardBody>
+      </Card>
+      
       {totalItems ? (
         <div className={portfolioList && portfolioList.length > 0 ? '' : 'd-none'}>
           <div className="justify-content-center d-flex">

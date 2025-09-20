@@ -1,10 +1,28 @@
 /* ==========================================================================
 Main page styles
 ========================================================================== */
-.hipster {
-  display: inline-block;
-  width: 100%;
-  height: 497px;
-  background: url('/content/images/jhipster_family_member_0.svg') no-repeat center top;
-  background-size: contain;
+
+.portfolio-hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4rem 0;
+  margin: -1rem -1rem 2rem -1rem;
+  border-radius: 0 0 1rem 1rem;
+}
+
+.feature-card {
+  transition: transform 0.2s ease-in-out;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.metric-card {
+  background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+  border: none;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
