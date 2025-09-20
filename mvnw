@@ -61,14 +61,14 @@ set_java_home() {
     fi
   else
     JAVACMD="$(
-      'set' +e
-      'unset' -f command 2>/dev/null
-      'command' -v java
+      set +e
+      unset -f command 2>/dev/null
+      command -v java
     )" || :
     JAVACCMD="$(
-      'set' +e
-      'unset' -f command 2>/dev/null
-      'command' -v javac
+      set +e
+      unset -f command 2>/dev/null
+      command -v javac
     )" || :
 
     if [ ! -x "${JAVACMD-}" ] || [ ! -x "${JAVACCMD-}" ]; then
