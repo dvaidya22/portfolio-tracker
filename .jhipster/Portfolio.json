@@ -1,0 +1,41 @@
+{
+  "annotations": {
+    "changelogDate": "20250919153548"
+  },
+  "applications": ["PortfolioTracker"],
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "createdDate",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "name": "Portfolio",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityField": "ticker",
+      "otherEntityName": "asset",
+      "otherEntityRelationshipName": "portfolio",
+      "relationshipName": "asset",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "userAccount",
+      "otherEntityRelationshipName": "portfolio",
+      "relationshipName": "user",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

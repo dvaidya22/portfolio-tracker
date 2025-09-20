@@ -1,0 +1,45 @@
+application {
+  config {
+    baseName PortfolioTracker
+    applicationType monolith
+    packageName com.example.portfolio
+    authenticationType jwt
+    prodDatabaseType postgresql
+    devDatabaseType postgresql
+    buildTool maven
+    clientFramework react
+    serviceDiscoveryType no
+    enableSwaggerCodegen true
+  }
+
+  entities *
+}
+
+entity UserAccount {
+  login String required minlength(3) maxlength(50)
+  email String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)
+  password String required minlength(6) maxlength(100)
+}
+
+entity Portfolio {
+  name String required
+  createdDate Instant required
+}
+
+entity Asset {
+  ticker String required minlength(1) maxlength(10)
+  quantity Integer required min(1)
+  avgPrice BigDecimal required
+}
+
+relationship OneToMany {
+  UserAccount{portfolio(name)} to Portfolio{user(login)}
+}
+
+relationship OneToMany {
+  Portfolio{asset(ticker)} to Asset{portfolio(name)}
+}
+
+dto * with mapstruct
+service all with serviceClass
+paginate * with pagination

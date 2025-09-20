@@ -1,0 +1,20 @@
+{
+  "generator-jhipster": {
+    "applicationType": "monolith",
+    "authenticationType": "jwt",
+    "baseName": "PortfolioTracker",
+    "buildTool": "maven",
+    "clientFramework": "react",
+    "devDatabaseType": "postgresql",
+    "enableSwaggerCodegen": true,
+    "entities": ["UserAccount", "Portfolio", "Asset"],
+    "jhipsterVersion": "8.11.0",
+    "jwtSecretKey": "MGRhMzA0MGY4Nzk0ZTVkZGJkM2RhYzJkMzdiOTczOGMwMDQyODM2MDg3NDE3YmRkM2E0NmNhMDEyYWMzZmFjOTU4ODRmMmVkODlkOTgzMjc2MGFiNzk4ODM5ZDk5MmEzNWE2OWZjOTNiMDQ3Mzk0YzhkNGNhNzBhNjEwZTdmZDc=",
+    "languages": ["en"],
+    "lastLiquibaseTimestamp": 1758296208000,
+    "nativeLanguage": "en",
+    "packageName": "com.example.portfolio",
+    "prodDatabaseType": "postgresql",
+    "serviceDiscoveryType": "no"
+  }
+}
